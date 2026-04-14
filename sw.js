@@ -1,22 +1,22 @@
-// sw.js - Service Worker para Perlas Preciosas
+// sw.js - Service Worker para Meluk salon
 
-const CACHE_NAME = 'perlas-preciosas-v1';
+const CACHE_NAME = 'meluksalon-v1';
 const urlsToCache = [
-  '/perlas-preciosas/',
-  '/perlas-preciosas/index.html',
-  '/perlas-preciosas/admin.html',
-  '/perlas-preciosas/admin-login.html',
-  '/perlas-preciosas/setup-wizard.html',
-  '/perlas-preciosas/editar-negocio.html',
-  '/perlas-preciosas/manifest.json',
-  '/perlas-preciosas/icons/icon-72x72.png',
-  '/perlas-preciosas/icons/icon-96x96.png',
-  '/perlas-preciosas/icons/icon-128x128.png',
-  '/perlas-preciosas/icons/icon-144x144.png',
-  '/perlas-preciosas/icons/icon-152x152.png',
-  '/perlas-preciosas/icons/icon-192x192.png',
-  '/perlas-preciosas/icons/icon-384x384.png',
-  '/perlas-preciosas/icons/icon-512x512.png'
+  '/meluksalon/',
+  '/meluksalon/index.html',
+  '/meluksalon/admin.html',
+  '/meluksalon/admin-login.html',
+  '/meluksalon/setup-wizard.html',
+  '/meluksalon/editar-negocio.html',
+  '/meluksalon/manifest.json',
+  '/meluksalon/icons/icon-72x72.png',
+  '/meluksalon/icons/icon-96x96.png',
+  '/meluksalon/icons/icon-128x128.png',
+  '/meluksalon/icons/icon-144x144.png',
+  '/meluksalon/icons/icon-152x152.png',
+  '/meluksalon/icons/icon-192x192.png',
+  '/meluksalon/icons/icon-384x384.png',
+  '/meluksalon/icons/icon-512x512.png'
 ];
 
 // ============================================
@@ -108,7 +108,7 @@ self.addEventListener('fetch', event => {
           }
           // Si no hay cache y es imagen, devolver icon por defecto
           if (event.request.url.match(/\.(jpg|jpeg|png|gif|svg|webp)$/)) {
-            return caches.match('/perlas-preciosas/icons/icon-192x192.png');
+            return caches.match('/meluksalon/icons/icon-192x192.png');
           }
           return new Response('Error de red', { status: 408 });
         });
@@ -138,6 +138,6 @@ self.addEventListener('message', event => {
   }
 });
 
-console.log('✅ Service Worker configurado para Perlas Preciosas');
+console.log('✅ Service Worker configurado para Meluk salon');
 console.log('📦 Cache:', CACHE_NAME);
 console.log('📄 Archivos a cachear:', urlsToCache.length);
