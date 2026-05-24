@@ -1,6 +1,6 @@
 // sw.js - Service Worker para Meluk salon
 
-const CACHE_NAME = 'meluksalon-v29';
+const CACHE_NAME = 'meluksalon-v25';
 const urlsToCache = [
   '/meluksalon/',
   '/meluksalon/index.html',
