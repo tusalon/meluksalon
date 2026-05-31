@@ -1,6 +1,6 @@
 // sw.js - Service Worker para Meluk salon
 
-const CACHE_NAME = 'meluksalon-v29';
+const CACHE_NAME = 'meluksalon-v47';
 const urlsToCache = [
   '/meluksalon/',
   '/meluksalon/index.html',
@@ -17,7 +17,14 @@ const urlsToCache = [
   '/meluksalon/icons/icon-152x152.png',
   '/meluksalon/icons/icon-192x192.png',
   '/meluksalon/icons/icon-384x384.png',
-  '/meluksalon/icons/icon-512x512.png'
+  '/meluksalon/icons/icon-512x512.png',
+  '/meluksalon/vendor/react.production.min.js',
+  '/meluksalon/vendor/react-dom.production.min.js',
+  '/meluksalon/vendor/babel.min.js',
+  '/meluksalon/vendor/bcrypt.min.js',
+  '/meluksalon/vendor/tailwind-browser.js',
+  '/meluksalon/vendor/lucide/lucide.css',
+  '/meluksalon/vendor/lucide/lucide.woff2'
 ];
 
 // ============================================
