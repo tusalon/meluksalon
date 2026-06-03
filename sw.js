@@ -1,6 +1,6 @@
 // sw.js - Service Worker para Meluk salon
 
-const CACHE_NAME = 'meluksalon-v47';
+const CACHE_NAME = 'meluksalon-v49';
 const urlsToCache = [
   '/meluksalon/',
   '/meluksalon/index.html',
@@ -24,7 +24,9 @@ const urlsToCache = [
   '/meluksalon/vendor/bcrypt.min.js',
   '/meluksalon/vendor/tailwind-browser.js',
   '/meluksalon/vendor/lucide/lucide.css',
-  '/meluksalon/vendor/lucide/lucide.woff2'
+  '/meluksalon/vendor/lucide/lucide.woff2',
+  '/meluksalon/utils/push-config.js',
+  '/meluksalon/utils/push-notifications.js'
 ];
 
 // ============================================
@@ -144,6 +146,51 @@ self.addEventListener('message', event => {
       });
     });
   }
+});
+
+// ============================================
+// WEB PUSH OPCIONAL
+// ============================================
+self.addEventListener('push', event => {
+  let payload = {};
+
+  try {
+    payload = event.data ? event.data.json() : {};
+  } catch (error) {
+    payload = {
+      title: 'RservasRoma',
+      body: event.data ? event.data.text() : 'Tienes una nueva notificación'
+    };
+  }
+
+  const title = payload.title || 'RservasRoma';
+  const options = {
+    body: payload.body || 'Tienes una nueva notificación',
+    icon: '/meluksalon/icons/icon-192x192.png',
+    badge: '/meluksalon/icons/icon-96x96.png',
+    tag: payload.tag || 'rservasroma',
+    data: {
+      url: payload.url || '/meluksalon/admin.html',
+      ...(payload.data || {})
+    }
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+
+  const targetUrl = event.notification?.data?.url || '/meluksalon/admin.html';
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clientList => {
+      for (const client of clientList) {
+        if (client.url.includes(targetUrl) && 'focus' in client) return client.focus();
+      }
+      if (clients.openWindow) return clients.openWindow(targetUrl);
+      return null;
+    })
+  );
 });
 
 console.log('✅ Service Worker configurado para Meluk salon');
